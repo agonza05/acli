@@ -1,2 +1,13 @@
-# acli
-CLI app for automating personal tasks
+# `acli`
+
+**Usage**:
+
+```console
+$ acli [OPTIONS]
+```
+
+**Options**:
+
+* `--install-completion`: Install completion for the current shell.
+* `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
+* `--help`: Show this message and exit.
