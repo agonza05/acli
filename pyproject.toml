@@ -1,11 +1,11 @@
-[build-system]
-requires = ["setuptools>=77"]
-build-backend = "setuptools.build_meta"
+[metadata]
+name = "acli"
+version = "0.1.0"
 
 [project]
 name = "acli"
 version = "0.1.0"
-description = "agonza CLI (personal)"
+description = "agonza CLI"
 requires-python = ">=3.13"
 dependencies = [
     "colorama",
@@ -35,8 +35,6 @@ acli = "acli.__main__:main"
 "Homepage" = "https://github.com/agonza05/acli"
 "Bug Tracker" = "https://github.com/agonza05/acli/issues"
 
-[tool.setuptools]
-packages = ["acli"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -88,3 +86,7 @@ exclude_lines = [
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
 ]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
