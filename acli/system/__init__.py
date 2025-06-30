@@ -1,7 +1,8 @@
-import typer
+"""This module initializes system commands."""
 
-from .info import app as info_app
+# acli/system/__init__.py
 
-app = typer.Typer()
 
-app.add_typer(info_app)
+from acli import GLOBAL_ENVVAR_PREFIX
+
+COMMAND_ENVVAR_PREFIX = GLOBAL_ENVVAR_PREFIX + "SYSTEM_"

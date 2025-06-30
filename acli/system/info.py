@@ -1,3 +1,7 @@
+"""This module provides system info functionality."""
+
+# acli/system/info.py
+
 import typer
 import platform
 import psutil

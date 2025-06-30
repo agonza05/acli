@@ -10,9 +10,11 @@ requires-python = ">=3.13"
 dependencies = [
     "colorama",
     "psutil",
-    "pytest",
     "shellingham",
     "typer",
+    "pydantic-settings",
+    "requests",
+    "dotenv",
 ]
 
 [project.optional-dependencies]
@@ -29,7 +31,7 @@ test = [
 ]
 
 [project.scripts]
-acli = "acli.__main__:main"
+acli = "acli.main:main"
 
 [project.urls]
 "Homepage" = "https://github.com/agonza05/acli"
@@ -86,7 +88,3 @@ exclude_lines = [
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
 ]
-
-[build-system]
-requires = ["setuptools>=77"]
-build-backend = "setuptools.build_meta"

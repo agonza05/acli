@@ -13,7 +13,10 @@ __version__ = "0.1.0"
     DB_WRITE_ERROR,
     JSON_ERROR,
     ID_ERROR,
-) = range(7)
+    CONN_ERROR,
+    API_GET_ERROR,
+    API_POST_ERROR,
+) = range(10)
 
 ERRORS = {
     DIR_ERROR: "config directory error",
@@ -21,4 +24,9 @@ ERRORS = {
     DB_READ_ERROR: "database read error",
     DB_WRITE_ERROR: "database write error",
     ID_ERROR: "app id error",
+    CONN_ERROR: "connection error",
+    API_GET_ERROR: "api post error",
+    API_POST_ERROR: "api post error",
 }
+
+GLOBAL_ENVVAR_PREFIX = "ACLI_"

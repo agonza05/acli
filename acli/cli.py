@@ -2,32 +2,19 @@
 
 # acli/cli.py
 
-# from pathlib import Path
 from typing import Optional
 import typer
 
-from acli import ERRORS, __app_name__, __version__, config
-from .system import app as sys_app
+from acli import __app_name__, __version__
+from .config.app import app as config_app
+from .system.app import app as sys_app
+from .personio.app import app as personio_app
 
 app = typer.Typer()
 
+app.add_typer(config_app, name="config", help="Config commands.")
 app.add_typer(sys_app, name="system", help="System commands.")
-
-
-@app.command()
-def init() -> None:
-    """Initialize the app."""
-    app_init_error = config.init_app()
-    if app_init_error:
-        typer.secho(
-            f'Creating config file failed with "{ERRORS[app_init_error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    else:
-        typer.secho(
-            f"The config file is {str(config.CONFIG_FILE_PATH)}", fg=typer.colors.GREEN
-        )
+app.add_typer(personio_app, name="personio", help="Personio commands.")
 
 
 def _version_callback(value: bool) -> None:
