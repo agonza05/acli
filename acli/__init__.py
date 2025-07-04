@@ -16,7 +16,8 @@ __version__ = "0.1.0"
     CONN_ERROR,
     API_GET_ERROR,
     API_POST_ERROR,
-) = range(10)
+    OS_COMMAND_ERROR,
+) = range(11)
 
 ERRORS = {
     DIR_ERROR: "config directory error",
@@ -27,6 +28,7 @@ ERRORS = {
     CONN_ERROR: "connection error",
     API_GET_ERROR: "api post error",
     API_POST_ERROR: "api post error",
+    OS_COMMAND_ERROR: "OS command error",
 }
 
 GLOBAL_ENVVAR_PREFIX = "ACLI_"
