@@ -19,10 +19,9 @@ def test_system_info():
     matches = re.findall(REGEX_PATTERN, result.stdout, re.MULTILINE)
     assert matches == SYSTEM_INFO_CATEGORIES
 
+
 def test_system_up():
-    expected_lines = [
-        "Packages upgraded successfully."
-    ]
+    expected_lines = ["Packages upgraded successfully."]
     result = runner.invoke(cli.app, ["system", "up"])
     assert result.exit_code == 0
     for line in expected_lines:

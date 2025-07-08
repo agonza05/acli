@@ -12,7 +12,6 @@ dependencies = [
     "psutil",
     "shellingham",
     "typer",
-    "pydantic-settings",
     "requests",
     "dotenv",
 ]

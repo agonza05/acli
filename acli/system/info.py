@@ -13,6 +13,8 @@ app = typer.Typer()
 
 
 def get_system_info():
+    """Gets system information for OS, disk, CPU and memory."""
+
     info = {}
 
     # Operating System details
@@ -72,6 +74,7 @@ def get_system_info():
 @app.command()
 def info() -> None:
     """Display system information."""
+
     system_info = get_system_info()
     for category, details in system_info.items():
         table = Table("Item", "Value", title=category.upper(), title_style="cyan")

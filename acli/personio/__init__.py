@@ -6,7 +6,6 @@ import typer
 from typing_extensions import Annotated
 
 from acli import GLOBAL_ENVVAR_PREFIX
-from acli.config.environment import _load_env_vars
 
 COMMAND_ENVVAR_PREFIX = GLOBAL_ENVVAR_PREFIX + "PERSONIO_"
 PERSONIO_BASE_URL = "https://api.personio.de/v2"
@@ -46,5 +45,3 @@ EMPLOYEE_ID_OPTIONS = Annotated[
         help="i.e.: 123456",
     ),
 ]
-
-_load_env_vars()

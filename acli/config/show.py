@@ -1,10 +1,10 @@
-"""This module provides config env and show functionality."""
+"""This module provides config show functionality."""
 
 # acli/config/info.py
 
 import typer
 
-from . import config_file_path
+from acli.configinit import config_file_path
 
 
 app = typer.Typer()

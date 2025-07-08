@@ -5,14 +5,15 @@
 import typer
 import requests
 
-from acli import ERRORS, CONN_ERROR
+from acli import NET_CONN_ERROR, JSON_DATA_ERROR
+from acli.helpers import error_and_exit, validate_http_status_code
 from . import CLIENT_ID_OPTIONS, CLIENT_SECRET_OPTIONS, PERSONIO_BASE_URL
 
 
 app = typer.Typer()
 
 
-def _auth_request(client_id: str, client_secret: str) -> requests.models.Response:
+def get_auth_token(client_id: str, client_secret: str) -> str | None:
     endpoint_url = PERSONIO_BASE_URL + "/auth/token"
     payload = {
         "grant_type": "client_credentials",
@@ -25,17 +26,15 @@ def _auth_request(client_id: str, client_secret: str) -> requests.models.Respons
     }
     try:
         response = requests.post(endpoint_url, data=payload, headers=headers)
-    except OSError:
-        typer.secho(
-            f"API authentication failed. Error {ERRORS[CONN_ERROR]}",
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit()
-    return response
+        validate_http_status_code(response)
+        json_data = response.json()
+        if "access_token" in json_data:
+            return json_data["access_token"]
+        else:
+            error_and_exit(JSON_DATA_ERROR, "No auth token found in response.")
+    except requests.exceptions.RequestException as e:
+        error_and_exit(NET_CONN_ERROR, f"API request error. {e.strerror}")
 
-def _get_auth_token(client_id: str, client_secret: str) -> str:
-    response = _auth_request(client_id, client_secret)
-    return response.json()["access_token"]
 
 @app.command()
 def auth(
@@ -44,5 +43,5 @@ def auth(
 ) -> None:
     """Authenticates with Personio API."""
 
-    auth_token = _get_auth_token(client_id, client_secret)
+    auth_token = get_auth_token(client_id, client_secret)
     typer.echo(auth_token)

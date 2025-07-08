@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from typing import List
 from typing_extensions import Annotated
 
-from acli import ERRORS, API_POST_ERROR
+from acli.helpers import validate_http_status_code
 from . import (
     COMMAND_ENVVAR_PREFIX,
     PERSONIO_BASE_URL,
@@ -16,7 +16,7 @@ from . import (
     CLIENT_SECRET_OPTIONS,
     EMPLOYEE_ID_OPTIONS,
 )
-from .auth import _get_auth_token
+from .auth import get_auth_token
 
 DEFAULT_START_TIME = {
     "MORNING": "08:30:00",
@@ -48,17 +48,13 @@ def _attendance(access_token: str, employee_id: str, start_date: str) -> None:
             "end": {"date_time": start_date + "T" + DEFAULT_END_TIME[item]},
         }
         response = requests.post(endpoint_url, headers=headers, json=payload)
-        if 300 >= response.status_code < 200:
-            typer.secho(
-                f"Attendance posting failed. Error {ERRORS[API_POST_ERROR]}",
-                fg=typer.colors.RED,
-            )
-            raise typer.Exit()
+        validate_http_status_code(response)
+
 
 def get_working_days_for_next_four_weeks(start_date: str, weeks: int) -> List[str]:
     """Return the working days for the following 4 weeks starting from the previous Monday."""
 
-    req_date = datetime.strptime(start_date,"%Y-%m-%d")
+    req_date = datetime.strptime(start_date, "%Y-%m-%d")
     # Find the previous Monday
     last_monday = req_date - timedelta(days=req_date.weekday())
 
@@ -71,6 +67,7 @@ def get_working_days_for_next_four_weeks(start_date: str, weeks: int) -> List[st
             working_days.append(work_day.strftime("%Y-%m-%d"))
 
     return working_days
+
 
 @app.command()
 def attendance(
@@ -98,12 +95,14 @@ def attendance(
 ) -> None:
     """Create a single-day attendance."""
 
-    access_token = _get_auth_token(client_id, client_secret)
+    access_token = get_auth_token(client_id, client_secret)
     start_date = attendance_date or datetime.now().strftime("%Y-%m-%d")
     if attendance_weeks == 0:
-        _attendance(access_token, employee_id, start_date)
+        _attendance(str(access_token), employee_id, start_date)
     else:
-        create_attendance_weeks = get_working_days_for_next_four_weeks(start_date, attendance_weeks)
+        create_attendance_weeks = get_working_days_for_next_four_weeks(
+            start_date, attendance_weeks
+        )
         for i in create_attendance_weeks:
-            _attendance(access_token, employee_id, i)
+            _attendance(str(access_token), employee_id, i)
     typer.secho("Attendance added successfully.", fg=typer.colors.GREEN)

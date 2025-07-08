@@ -1,11 +1,10 @@
 """This module provides system packages functionality."""
 
-# acli/system/info.py
+# acli/system/packages.py
 
 import typer
-import subprocess
 
-from acli import ERRORS, OS_COMMAND_ERROR
+from acli.helpers import run_cmd
 
 app = typer.Typer()
 
@@ -14,18 +13,8 @@ app = typer.Typer()
 def up() -> None:
     """Upgrade brew packages."""
 
-    commands = [
-        "brew update",
-        "brew upgrade",
-        "brew cleanup"
-    ]
+    brew_commands = ["update", "upgrade", "cleanup"]
 
-    for command in commands:
-        result = subprocess.run(command, shell=True)
-        if result.returncode != 0:
-            typer.secho(
-                f"Attendance posting failed. Error {ERRORS[OS_COMMAND_ERROR]}",
-                fg=typer.colors.RED,
-            )
-            raise typer.Exit()
+    for command in brew_commands:
+        run_cmd(["brew", command])
     typer.secho("Packages upgraded successfully.", fg=typer.colors.GREEN)
