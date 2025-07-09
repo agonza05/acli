@@ -3,7 +3,7 @@
 # acli/__init__.py
 
 __app_name__ = "acli"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 (
     SUCCESS,
