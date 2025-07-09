@@ -2,9 +2,10 @@
 
 import typer
 import subprocess
+from typing import Any
 from requests.models import Response
 
-from . import DEFAULT_ERROR, OS_COMMAND_ERROR, HTTP_CODE_ERROR
+from . import DEFAULT_ERROR, OS_COMMAND_ERROR, HTTP_CODE_ERROR, JSON_DATA_ERROR
 
 
 def error_and_exit(
@@ -19,18 +20,16 @@ def error_and_exit(
     raise typer.Exit()
 
 
-def run_cmd(cmd) -> str | None:
+def run_cmd(cmd) -> str:
     """Helper to run commands in shell and returns stdout."""
 
+    return_data = ""
     try:
         result = subprocess.run(cmd, text=True, capture_output=True, check=True)
-        if result.returncode != 0:
-            error_and_exit(OS_COMMAND_ERROR, f"Running command {cmd} failed.")
-        return result.stdout.strip()
+        return_data = result.stdout.strip()
     except subprocess.CalledProcessError as e:
-        error_and_exit(
-            OS_COMMAND_ERROR, f"Trying to run command {cmd} failed. {e.stderr}"
-        )
+        error_and_exit(OS_COMMAND_ERROR, f"Running command {cmd} failed. {e.stderr}")
+    return return_data
 
 
 def validate_http_status_code(response: Response) -> None:
@@ -38,3 +37,10 @@ def validate_http_status_code(response: Response) -> None:
 
     if 300 >= response.status_code < 200:
         error_and_exit(HTTP_CODE_ERROR, "Response has not a HTTP 2XX status code.")
+
+
+def validate_json_key(json_key: str, json_data: Any) -> None:
+    """Helper validate and error on key existence."""
+
+    if json_key not in json_data:
+        error_and_exit(JSON_DATA_ERROR, f"JSON key {json_key} not found.")

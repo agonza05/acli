@@ -7,6 +7,8 @@ from typing_extensions import Annotated
 
 from acli.docker import COMMAND_ENVVAR_PREFIX
 
+DEFAULT_VAULT_NAME = "Docker"
+
 VAULT_NAME_OPTION = Annotated[
     str,
     typer.Option(

@@ -5,7 +5,7 @@
 import typer
 import requests
 
-from acli.helpers import validate_http_status_code
+from acli.helpers import validate_http_status_code, validate_json_key
 from . import CLIENT_ID_OPTIONS, CLIENT_SECRET_OPTIONS, EMPLOYEE_ID_OPTIONS
 from .auth import get_auth_token
 
@@ -26,6 +26,7 @@ def employee(
     headers = {"accept": "application/json", "authorization": f"Bearer {access_token}"}
     response = requests.get(endpoint_url, headers=headers)
     validate_http_status_code(response)
+    validate_json_key("data", response.json())
     json_data = response.json()["data"]["attributes"]
 
     typer.echo(f"Name: {json_data["preferred_name"]["value"]}")

@@ -5,8 +5,8 @@
 import typer
 import json
 
-from . import VAULT_NAME_OPTION
 from acli.helpers import run_cmd
+from . import VAULT_NAME_OPTION, DEFAULT_VAULT_NAME
 
 
 app = typer.Typer()
@@ -14,8 +14,9 @@ app = typer.Typer()
 
 def get_vault(vault_name: str) -> dict:
     """Get 1password vault."""
+
     result = run_cmd(["op", "vault", "list", "--format", "json"])
-    vaults = json.loads(str(result))
+    vaults = json.loads(result)
     vault_data = [vault for vault in vaults if vault["name"] == vault_name]
     if len(vault_data) > 1:
         typer.secho(
@@ -32,8 +33,9 @@ def get_vault(vault_name: str) -> dict:
 
 
 @app.command()
-def vault(vault_name: VAULT_NAME_OPTION = "Docker") -> None:
+def vault(vault_name: VAULT_NAME_OPTION = DEFAULT_VAULT_NAME) -> None:
     """Show 1password vault information used by Docker."""
+
     vault = get_vault(vault_name)
     typer.echo(f"Vault ID: {vault['id']}")
     typer.echo(f"Name: {vault['name']}")

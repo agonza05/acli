@@ -98,11 +98,11 @@ def attendance(
     access_token = get_auth_token(client_id, client_secret)
     start_date = attendance_date or datetime.now().strftime("%Y-%m-%d")
     if attendance_weeks == 0:
-        _attendance(str(access_token), employee_id, start_date)
+        _attendance(access_token, employee_id, start_date)
     else:
         create_attendance_weeks = get_working_days_for_next_four_weeks(
             start_date, attendance_weeks
         )
         for i in create_attendance_weeks:
-            _attendance(str(access_token), employee_id, i)
+            _attendance(access_token, employee_id, i)
     typer.secho("Attendance added successfully.", fg=typer.colors.GREEN)
