@@ -3,7 +3,7 @@
 # acli/__init__.py
 
 __app_name__ = "acli"
-__version__ = "0.1.2"
+__version__ = "0.2.1"
 
 (
     SUCCESS,
@@ -14,7 +14,7 @@ __version__ = "0.1.2"
     JSON_DATA_ERROR,
     NET_CONN_ERROR,
     HTTP_CODE_ERROR,
-    API_POST_ERROR,
+    APP_DOCKER_VAULT_ERROR,
 ) = range(9)
 
 GLOBAL_ENVVAR_PREFIX = "ACLI_"

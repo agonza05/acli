@@ -17,7 +17,7 @@ def error_and_exit(
     if error_msg:
         msg = error_msg
     typer.secho(f"Error {error_code}: {msg}", fg=typer.colors.RED)
-    raise typer.Exit()
+    raise typer.Exit(code=error_code)
 
 
 def run_cmd(cmd) -> str:
