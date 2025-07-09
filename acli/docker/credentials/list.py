@@ -16,9 +16,7 @@ app = typer.Typer()
 def list(vault_name: VAULT_NAME_OPTION = DEFAULT_VAULT_NAME) -> None:
     """List all credentials from Docker credentials vault."""
 
-    result = run_cmd(
-        ["op", "item", "list", "--vault", vault_name, "--format", "json"]
-    )
+    result = run_cmd(["op", "item", "list", "--vault", vault_name, "--format", "json"])
     json_data = json.loads(result)
     output = {}
     for item in json_data:
@@ -28,7 +26,11 @@ def list(vault_name: VAULT_NAME_OPTION = DEFAULT_VAULT_NAME) -> None:
         if item_data:
             json_item_data = json.loads(item_data)
             title = f"{json_item_data['title']}"
-            fields = {f["id"]: f["value"] for f in json_item_data.get("fields", []) if any(value == f["id"] for value in ["username", "credential"]) }
+            fields = {
+                f["id"]: f["value"]
+                for f in json_item_data.get("fields", [])
+                if any(value == f["id"] for value in ["username", "credential"])
+            }
             output[title] = fields.get("username")
 
     typer.echo(json.dumps(output))

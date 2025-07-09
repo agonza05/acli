@@ -22,7 +22,11 @@ def get(vault_name: VAULT_NAME_OPTION = DEFAULT_VAULT_NAME) -> None:
         ["op", "item", "get", registry, "--vault", vault_name, "--format", "json"]
     )
     json_data = json.loads(result)
-    fields = {f["id"]: f["value"] for f in json_data.get("fields", []) if any(value == f["id"] for value in ["username", "credential"]) }
+    fields = {
+        f["id"]: f["value"]
+        for f in json_data.get("fields", [])
+        if any(value == f["id"] for value in ["username", "credential"])
+    }
     output = {
         "ServerURL": registry,
         "Username": fields.get("username"),

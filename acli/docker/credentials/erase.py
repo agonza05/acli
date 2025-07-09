@@ -23,6 +23,4 @@ def erase(vault_name: VAULT_NAME_OPTION = DEFAULT_VAULT_NAME) -> None:
     )
     json_data = json.loads(result)
     if result:
-        run_cmd(
-            ["op", "item", "delete", json_data["id"], "--vault", vault_name]
-        )
+        run_cmd(["op", "item", "delete", json_data["id"], "--vault", vault_name])
