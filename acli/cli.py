@@ -6,6 +6,7 @@ from typing import Optional
 import typer
 
 from acli import __app_name__, __version__
+from acli.helpers import run_cmd
 from .configinit import init_config, load_env_vars
 from .config.app import app as config_app
 from .system.app import app as sys_app
@@ -46,3 +47,10 @@ def main(
     )
 ) -> None:
     return
+
+@app.command()
+def upgrade() -> None:
+    """Upgrade this application."""
+
+    run_cmd(["uv", "tool","upgrade", __app_name__])
+    typer.secho(f"{__app_name__} upgraded successfully to version: {__version__}", fg=typer.colors.GREEN)
