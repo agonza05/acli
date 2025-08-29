@@ -3,14 +3,22 @@
 **Usage**:
 
 ```console
-$ acli [OPTIONS]
+$ acli [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
 
+* `--version, -v`: Show the application's version and exit.
 * `--install-completion`: Install completion for the current shell.
 * `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
 * `--help`: Show this message and exit.
+
+**Commands**:
+
+* `config`: Config commands.
+* `system`: System commands.
+* `personio`: Personio commands.
+* `docker`: Docker commands.
 
 # `acli system`
 
@@ -62,7 +70,7 @@ $ acli config [OPTIONS] COMMAND [ARGS]...
 
 * `init`: Initializes configuration files.
 * `path`: Display full path of configuration files.
-* `env`: Show envrionment variables.
+* `env`: Show environment variables.
 * `show`: Show app configuration.
 
 ## `acli config init`
@@ -95,7 +103,7 @@ $ acli config path [OPTIONS]
 
 ## `acli config env`
 
-Show envrionment variables.
+Show environment variables.
 
 **Usage**:
 
@@ -206,5 +214,116 @@ $ acli personio attendance [OPTIONS]
 * `-i, --employee-id TEXT`: i.e.: 123456  [env var: ACLI_PERSONIO_EMPLOYEE_ID; required]
 * `-d, --attendance-date TEXT`: i.e.: 2006-01-02  [env var: ACLI_PERSONIO_ATTENDANCE_DATE]
 * `-w, --attendance-weeks INTEGER`: i.e.: 4  [env var: ACLI_PERSONIO_ATTENDANCE_WEEKS; default: 0]
+* `--help`: Show this message and exit.
+
+# `acli docker`
+
+**Usage**:
+
+```console
+$ acli docker [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `credentials`: Docker credentials commands.
+
+## `acli docker credentials`
+
+**Usage**:
+
+```console
+$ acli docker credentials [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `vault`: Show 1password vault information used by Docker.
+* `get`: Show a credential from Docker credentials vault.
+* `erase`: Erase a credential from Docker credentials vault.
+* `list`: List all credentials from Docker credentials vault.
+* `store`: Show a credential from Docker credentials vault.
+
+### `acli docker credentials vault`
+
+Show 1password vault information used by Docker.
+
+**Usage**:
+
+```console
+$ acli docker credentials vault [OPTIONS]
+```
+
+**Options**:
+
+* `--vault-name, -v TEXT`: i.e.: Docker  [env var: ACLI_DOCKER_VAULT_NAME; default: Docker]
+* `--help`: Show this message and exit.
+
+### `acli docker credentials get`
+
+Show a credential from Docker credentials vault.
+
+**Usage**:
+
+```console
+$ acli docker credentials get [OPTIONS]
+```
+
+**Options**:
+
+* `--vault-name, -v TEXT`: i.e.: Docker  [env var: ACLI_DOCKER_VAULT_NAME; default: Docker]
+* `--help`: Show this message and exit.
+
+### `acli docker credentials erase`
+
+Erase a credential from Docker credentials vault.
+
+**Usage**:
+
+```console
+$ acli docker credentials erase [OPTIONS]
+```
+
+**Options**:
+
+* `--vault-name, -v TEXT`: i.e.: Docker  [env var: ACLI_DOCKER_VAULT_NAME; default: Docker]
+* `--help`: Show this message and exit.
+
+### `acli docker credentials list`
+
+List all credentials from Docker credentials vault.
+
+**Usage**:
+
+```console
+$ acli docker credentials list [OPTIONS]
+```
+
+**Options**:
+
+* `--vault-name, -v TEXT`: i.e.: Docker  [env var: ACLI_DOCKER_VAULT_NAME; default: Docker]
+* `--help`: Show this message and exit.
+
+### `acli docker credentials store`
+
+Show a credential from Docker credentials vault.
+
+**Usage**:
+
+```console
+$ acli docker credentials store [OPTIONS]
+```
+
+**Options**:
+
+* `--vault-name, -v TEXT`: i.e.: Docker  [env var: ACLI_DOCKER_VAULT_NAME; default: Docker]
 * `--help`: Show this message and exit.
 

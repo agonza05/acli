@@ -6,7 +6,7 @@ import typer
 from pathlib import Path
 from dotenv import load_dotenv
 
-from . import __app_name__, DIR_ERROR, FILE_ERROR
+from . import __app_name__
 from .helpers import error_and_exit
 
 CONFIG_FILE_NAME = "config.ini"
@@ -29,12 +29,12 @@ def init_config() -> None:
         try:
             config_dir_path.mkdir(exist_ok=True)
         except OSError:
-            error_and_exit(DIR_ERROR, "Creating config directory failed.")
+            error_and_exit("directory")
         try:
             config_file_path.touch(exist_ok=True, mode=0o644)
             env_file_path.touch(exist_ok=True, mode=0o600)
         except OSError:
-            error_and_exit(FILE_ERROR, "Creating config directory failed.")
+            error_and_exit("file")
         typer.secho(
             f"Init: Config files location: {str(config_dir_path)}", fg=typer.colors.BLUE
         )

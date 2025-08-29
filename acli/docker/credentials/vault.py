@@ -5,7 +5,7 @@
 import typer
 import json
 
-from acli import APP_DOCKER_VAULT_ERROR
+from acli import ERROR_CODES
 from acli.helpers import run_cmd
 from . import VAULT_NAME_OPTION, DEFAULT_VAULT_NAME
 
@@ -29,7 +29,7 @@ def get_vault(vault_name: str) -> dict:
             f'Vault "{vault_name}" not found.',
             fg=typer.colors.RED,
         )
-        raise typer.Exit(code=APP_DOCKER_VAULT_ERROR)
+        raise typer.Exit(code=ERROR_CODES["app_docker_vault"])
     return vault_data[0]
 
 
