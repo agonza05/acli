@@ -1,5 +1,7 @@
 # `acli`
 
+Test
+
 **Usage**:
 
 ```console
@@ -326,4 +328,3 @@ $ acli docker credentials store [OPTIONS]
 
 * `--vault-name, -v TEXT`: i.e.: Docker  [env var: ACLI_DOCKER_VAULT_NAME; default: Docker]
 * `--help`: Show this message and exit.
-
