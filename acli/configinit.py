@@ -3,6 +3,7 @@
 # acli/init.py
 
 import typer
+import configparser
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -38,3 +39,16 @@ def init_config() -> None:
         typer.secho(
             f"Init: Config files location: {str(config_dir_path)}", fg=typer.colors.BLUE
         )
+
+
+def get_app_config(key_path: str) -> str:
+    """Helper to get app config."""
+
+    config_parser = configparser.ConfigParser()
+    config_parser.read(config_file_path)
+
+    keys = key_path.split(".")
+    value = config_parser
+    for key in keys:
+        value = value[key]
+    return str(value)

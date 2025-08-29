@@ -18,7 +18,10 @@ ERROR_CODES = dict(
     json_data=5,
     net_conn=6,
     http_code=7,
-    app_docker_vault=101,
+    config_key_path=8,
+    app_missing_input=101,
+    app_input_conflict=102,
+    app_docker_vault=103,
 )
 
 ERROR_MESSAGES = dict(
@@ -30,5 +33,8 @@ ERROR_MESSAGES = dict(
     json_data="JSON data is invalid.",
     net_conn="Network connection failed.",
     http_code="HTTP response code is not 200.",
+    config_key_path="Config key path is invalid.",
+    app_missing_input="User input is missing.",
+    app_input_conflict="User input is conflicting.",
     app_docker_vault="Docker Vault does not exist.",
 )

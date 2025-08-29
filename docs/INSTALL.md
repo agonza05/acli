@@ -15,5 +15,7 @@
 
 ### Permanent
 
-1. uv tool install --reinstall ~/path/to/acli
+1. uv tool install git+https://github.com/agonza05/acli
 2. acli
+
+Note: Upgrade with `uv tool upgrade acli`
